@@ -1,0 +1,27 @@
+# all routes relative to the local githubdata api
+
+api_get_events_count:
+  path: /api/events-count/{keyword}/{date}/{event_type}
+  controller: App\Controller\ApiGitHubDataController::getEventsCount
+  methods: GET
+  defaults:
+    event_type: all
+  requirements:
+      keyword: '[a-zA-Z]*'
+      date: '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+
+api_get_events_list:
+  path: /api/events-list/{keyword}/{date}/{event_type}
+  controller: App\Controller\ApiGitHubDataController::getEventsList
+  methods: GET
+  defaults:
+    event_type: all
+  requirements:
+    keyword: '[a-zA-Z]*'
+    date: '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+
+api_get_event_details:
+  path: /api/event/{id}
+  controller: App\Controller\ApiGitHubDataController::getEventDetails
+  methods: GET
+
