@@ -1,5 +1,8 @@
 <?php
-namespace App\Controller;
+declare(strict_types=1);
+
+
+namespace App\Project\UI\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

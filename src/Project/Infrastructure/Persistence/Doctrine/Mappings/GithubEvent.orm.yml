@@ -1,0 +1,31 @@
+App\Project\Domain\Entities\GithubEvent:
+    type: entity
+    table: github_event
+    repositoryClass: App\Project\Infrastructure\Persistence\Doctrine\Repositories\GithubEventRepository
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        eventType:
+            type: string
+            nullable: false
+            length: 50
+            column: type
+        createdAt:
+            type: datetimetz
+            nullable: false
+            column: created_at
+        payload:
+            type: json_array
+            nullable: false
+        comment:
+            type: string
+            nullable: false
+            length: 500
+

@@ -2,7 +2,7 @@
 
 api_get_events_count:
   path: /api/events-count/{keyword}/{date}/{event_type}
-  controller: App\Controller\ApiGitHubDataController::getEventsCount
+  controller: App\Project\UI\Controller\ApiGitHubDataController::getEventsCount
   methods: GET
   defaults:
     event_type: all
@@ -12,7 +12,7 @@ api_get_events_count:
 
 api_get_events_list:
   path: /api/events-list/{keyword}/{date}/{event_type}
-  controller: App\Controller\ApiGitHubDataController::getEventsList
+  controller: App\Project\UI\Controller\ApiGitHubDataController::getEventsList
   methods: GET
   defaults:
     event_type: all
@@ -22,6 +22,6 @@ api_get_events_list:
 
 api_get_event_details:
   path: /api/event/{id}
-  controller: App\Controller\ApiGitHubDataController::getEventDetails
+  controller: App\Project\UI\Controller\ApiGitHubDataController::getEventDetails
   methods: GET
 
