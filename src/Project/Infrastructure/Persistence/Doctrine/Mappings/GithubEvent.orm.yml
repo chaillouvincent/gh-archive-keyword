@@ -11,6 +11,11 @@ App\Project\Domain\Entities\GithubEvent:
             id: true
             generator:
                 strategy: NONE
+    indexes:        
+        event_type_idx:            
+            columns: [ type ]
+        created_id_idx:            
+            columns: [ created_at ]
     fields:
         eventType:
             type: string
