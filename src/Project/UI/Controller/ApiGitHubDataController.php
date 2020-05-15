@@ -7,25 +7,32 @@ namespace App\Project\UI\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Project\Domain\Exception\GithubEventNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiGitHubDataController extends AbstractController
 {
-    public function getEventsCount(string $keyword, string $date, string $eventType = 'all')
+    public function getEvents(string $keyword, string $date): JsonResponse
     {
 
         return new JsonResponse();
     }
 
-    public function getEventsList(string $keyword, string $date, string $eventType = 'all')
+    public function getEventDetails($id): JsonResponse
     {
+        try {
+            $sprint = $this->get('service.sprint')->get($id);
 
-        return new JsonResponse();
+            // return $this->render(
+            //     'AppBundle:Sprint:show.html.twig',
+            //     array('sprint' => new SprintViewAdapter($sprint))
+            // );
+
+            return new JsonResponse();
+
+        } catch (GithubEventNotFoundException $e) {
+
+            throw new NotFoundHttpException();
+        }
     }
-
-    public function getEventDetails($id)
-    {
-
-        return new JsonResponse();
-    }
-
 }

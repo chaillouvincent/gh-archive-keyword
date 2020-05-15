@@ -1,0 +1,4 @@
+dashbord.get.index:
+  path: /
+  controller: App\Project\UI\Controller\DashboardController::index
+  methods: GET

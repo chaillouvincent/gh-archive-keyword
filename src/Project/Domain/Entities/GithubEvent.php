@@ -10,6 +10,13 @@ namespace App\Project\Domain\Entities;
  */
 class GithubEvent
 {
+    public static $allowedEventTypes = array('PullRequestEvent', 'CommitCommentEvent', 'IssueCommentEvent', 'PullRequestReviewCommentEvent');
+
+    public static $typePullRequest = 'PullRequestEvent';
+    public static $typeCommitComment = 'CommitCommentEvent';
+    public static $typeIssueComment = 'IssueCommentEvent';
+    public static $typePullRequestReviewComment = 'PullRequestReviewCommentEvent';
+
     /**
      * @var integer
      */
@@ -40,17 +47,31 @@ class GithubEvent
      * Get the value of id
      *
      * @return  integer
-     */ 
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * Set the value of id
+     *
+     * @param  integer  $id
+     *
+     * @return  self
+     */
+    public function setId($id): GithubEvent
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Get the value of eventType
      *
      * @return  string
-     */ 
+     */
     public function getEventType(): string
     {
         return $this->eventType;
@@ -62,7 +83,7 @@ class GithubEvent
      * @param  string  $eventType
      *
      * @return  self
-     */ 
+     */
     public function setType(string $eventType): GithubEvent
     {
         $this->eventType = $eventType;
@@ -74,7 +95,7 @@ class GithubEvent
      * Get the value of createdAt
      *
      * @return  \DateTime
-     */ 
+     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
@@ -86,7 +107,7 @@ class GithubEvent
      * @param  \DateTime  $createdAt
      *
      * @return  self
-     */ 
+     */
     public function setCreatedAt(\DateTime $createdAt): GithubEvent
     {
         $this->createdAt = $createdAt;
@@ -98,7 +119,7 @@ class GithubEvent
      * Get the value of payload
      *
      * @return  []
-     */ 
+     */
     public function getPayload(): array
     {
         return $this->payload;
@@ -110,7 +131,7 @@ class GithubEvent
      * @param  array  $payload
      *
      * @return  self
-     */ 
+     */
     public function setPayload(array $payload): GithubEvent
     {
         $this->payload = $payload;
@@ -122,7 +143,7 @@ class GithubEvent
      * Get the value of comment
      *
      * @return  string
-     */ 
+     */
     public function getComment(): string
     {
         return $this->comment;
@@ -134,7 +155,7 @@ class GithubEvent
      * @param  string  $comment
      *
      * @return  self
-     */ 
+     */
     public function setComment(string $comment): GithubEvent
     {
         $this->comment = $comment;
