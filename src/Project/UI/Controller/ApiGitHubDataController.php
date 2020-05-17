@@ -53,6 +53,11 @@ class ApiGitHubDataController extends AbstractController
         return new JsonResponse($serializer->serialize($dtoGithubEventsStats, 'json'));
     }
 
+    /**
+     * Return a json object containing a specific event details
+     * @param int $id
+     * @return JsonResponse
+     */
     public function getEventDetails(int $id): JsonResponse
     {
         try {

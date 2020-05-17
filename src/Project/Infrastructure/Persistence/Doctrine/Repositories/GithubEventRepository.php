@@ -81,7 +81,7 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
             ->andWhere('e.comment LIKE :keyword')
             ->orderBy('e.createdAt', 'ASC');
 
-        $qb->setParameter('createdAt', $date);
+        $qb->setParameter('createdAt', $date->format('Y-m-d'));
         $qb->setParameter('keyword', '%' . $keyword . '%');
 
         $query = $qb->getQuery();
@@ -111,11 +111,11 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
         $qb = $this->em->createQueryBuilder('e')
             ->select('count(e.id)')
             ->from('ProjectDomainEntities:GithubEvent', 'e')
-            ->where('e.createdAt = :createdAt')
+            ->where('e.createdAt LIKE :createdAt')
             ->andWhere('e.eventType = :type')
             ->andWhere('e.comment LIKE :keyword');
 
-        $qb->setParameter('createdAt', $date);
+        $qb->setParameter('createdAt', $date->format('Y-m-d'));
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typeCommitComment);
 
@@ -139,7 +139,7 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
             ->andWhere('e.comment LIKE :keyword')
             ->andWhere('e.eventType = :type');
 
-        $qb->setParameter('createdAt', $date);
+        $qb->setParameter('createdAt', $date->format('Y-m-d'));
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typePullRequest);
 
@@ -163,7 +163,7 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
             ->andWhere('e.comment LIKE :keyword')
             ->andWhere('e.eventType = :type');
 
-        $qb->setParameter('createdAt', $date);
+        $qb->setParameter('createdAt', $date->format('Y-m-d'));
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typeIssueComment);
 
@@ -186,7 +186,7 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
             ->where('e.createdAt = :createdAt')
             ->andWhere('e.comment LIKE :keyword');
 
-        $qb->setParameter('createdAt', $date);
+        $qb->setParameter('createdAt',  $date->format('Y-m-d'));
         $qb->setParameter('keyword', '%' . $keyword . '%');
 
         return (int)$qb->getQuery()->getSingleScalarResult();
