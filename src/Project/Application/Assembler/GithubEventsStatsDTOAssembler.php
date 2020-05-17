@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Project\Application\Assembler;
 
-use \App\Project\Application\DTO\GithubEventsStatsDTO;
+use App\Project\Application\DTO\GithubEventsStatsDTO;
 
 
 class GithubEventsStatsDTOAssembler

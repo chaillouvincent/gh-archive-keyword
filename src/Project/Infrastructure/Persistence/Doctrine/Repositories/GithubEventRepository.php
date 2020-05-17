@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace  App\Project\Infrastructure\Repositories;
+namespace  App\Project\Infrastructure\Persistence\Doctrine\Repositories;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\ORM\EntityRepository;
+//use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use App\Project\Domain\Repositories\GithubEventRepositoryInterface;
 use App\Project\Domain\Entities\GithubEvent;
@@ -53,7 +53,7 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
      */
     public function add(GithubEvent $gitubEvent): void
     {
-        $this->em->persist($trip);
+        $this->em->persist($gitubEvent);
         $this->em->flush();
     }
 
@@ -110,15 +110,16 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
     {
         $qb = $this->em->createQueryBuilder('e')
             ->select('count(e.id)')
+            ->from('ProjectDomainEntities:GithubEvent', 'e')
             ->where('e.createdAt = :createdAt')
-            ->andWhere('e.comment LIKE :keyword')
-            ->andWhere('e.type = :type');
+            ->andWhere('e.eventType = :type')
+            ->andWhere('e.comment LIKE :keyword');
 
         $qb->setParameter('createdAt', $date);
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typeCommitComment);
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -133,15 +134,16 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
     {
         $qb = $this->em->createQueryBuilder('e')
             ->select('count(e.id)')
+            ->from('ProjectDomainEntities:GithubEvent', 'e')
             ->where('e.createdAt = :createdAt')
             ->andWhere('e.comment LIKE :keyword')
-            ->andWhere('e.type = :type');
+            ->andWhere('e.eventType = :type');
 
         $qb->setParameter('createdAt', $date);
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typePullRequest);
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -156,15 +158,16 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
     {
         $qb = $this->em->createQueryBuilder('e')
             ->select('count(e.id)')
+            ->from('ProjectDomainEntities:GithubEvent', 'e')
             ->where('e.createdAt = :createdAt')
             ->andWhere('e.comment LIKE :keyword')
-            ->andWhere('e.type = :type');
+            ->andWhere('e.eventType = :type');
 
         $qb->setParameter('createdAt', $date);
         $qb->setParameter('keyword', '%' . $keyword . '%');
         $qb->setParameter('type', GithubEvent::$typeIssueComment);
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -179,12 +182,13 @@ final class GithubEventRepository implements GithubEventRepositoryInterface
     {
         $qb = $this->em->createQueryBuilder('e')
             ->select('count(e.id)')
+            ->from('ProjectDomainEntities:GithubEvent', 'e')
             ->where('e.createdAt = :createdAt')
             ->andWhere('e.comment LIKE :keyword');
 
         $qb->setParameter('createdAt', $date);
         $qb->setParameter('keyword', '%' . $keyword . '%');
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 }

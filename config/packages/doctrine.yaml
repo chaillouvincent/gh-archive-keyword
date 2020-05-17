@@ -19,7 +19,7 @@ doctrine:
                 type: yml
                 dir: '%kernel.project_dir%/src/Project/Infrastructure/Persistence/Doctrine/Mappings'
                 prefix: 'App\Project\Domain\Entities'
-                alias: App
+                alias: ProjectDomainEntities
 
 
 

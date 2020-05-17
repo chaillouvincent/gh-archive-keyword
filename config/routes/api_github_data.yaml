@@ -1,8 +1,11 @@
 # all routes relative to the local githubdata api
 api.get.events:
-  path: /api/events/{keyword}/{date}
+  path: /api/events/{keyword}/{date}/{currentPage}/{elementsPerPage}
   controller: App\Project\UI\Controller\ApiGitHubDataController::getEvents
   methods: GET
+  defaults:
+      currentPage: 1
+      elementsPerPage: 10
   requirements:
       keyword: '[a-zA-Z]*'
       date: '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'

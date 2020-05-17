@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 namespace App\Project\Application\Service;
-use \App\Project\Application\DTO\GithubEventsStatsDTO;
-use \App\Project\Application\Assembler\GithubEventsStatsDTOAssembler;
-use \App\Project\Infrastructure\Persistence\Doctrine\Repositories\GithubEventRepository;
+use App\Project\Application\DTO\GithubEventsStatsDTO;
+use App\Project\Application\Assembler\GithubEventsStatsDTOAssembler;
+use App\Project\Infrastructure\Persistence\Doctrine\Repositories\GithubEventRepository;
 
 
 class GithubEventsStatsService
@@ -42,11 +42,11 @@ class GithubEventsStatsService
         $eventList = $this->repo->findEventsByKeywordAndDate($keyword, $date, $currentPage, $elementsPerPage);
 
         $params = [
-            numberOfCommitEvents => $numberOfCommitEvents,
-            numberOfPullRequestEvents => $numberOfPullRequestEvents,
-            numberOfIssueEvents => $numberOfIssueEvents,
-            numberOfComments => $numberOfComments,
-            eventList => $eventList
+            'numberOfCommitEvents'      => $numberOfCommitEvents,
+            'numberOfPullRequestEvents' => $numberOfPullRequestEvents,
+            'numberOfIssueEvents'       => $numberOfIssueEvents,
+            'numberOfComments'          => $numberOfComments,
+            'eventList'                 => $eventList
         ];
 
         return $this->assembler->toDTO($params);

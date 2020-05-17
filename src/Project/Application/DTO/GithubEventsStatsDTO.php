@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace App\Project\Application\DTO;
 
 /**
- * GithubEvent
+ * GithubEventsStatsDTO
  */
 class GithubEventsStatsDTO
 {
@@ -31,11 +31,11 @@ class GithubEventsStatsDTO
     public int $numberOfComments;
 
     /**
-     * @var \Collection
+     * @var \IteratorAggregate
      */
-    public \Collection $eventList;
+    public \IteratorAggregate $eventList;
 
-    public function setEventList(\Collection $eventList): GithubEventsStatsDTO
+    public function setEventList(\IteratorAggregate $eventList): GithubEventsStatsDTO
     {
         $this->eventList = $eventList;
 

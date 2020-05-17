@@ -23,6 +23,11 @@ class GithubEvent
     private int $id;
 
     /**
+     * @var integer
+     */
+    private int $gitubEventId;
+
+    /**
      * @var string
      */
     private string $eventType;
@@ -54,15 +59,25 @@ class GithubEvent
     }
 
     /**
-     * Set the value of id
+     * Get the value of githubEventId
      *
-     * @param  integer  $id
+     * @return  integer
+     */
+    public function getGitubEventId(): int
+    {
+        return $this->gitubEventId;
+    }
+
+    /**
+     * Set the value of gitubEvenId
+     *
+     * @param  integer  $gitubEvenId
      *
      * @return  self
      */
-    public function setId($id): GithubEvent
+    public function setGitubEventId($gitubEventId): GithubEvent
     {
-        $this->id = $id;
+        $this->gitubEventId = $gitubEventId;
 
         return $this;
     }
