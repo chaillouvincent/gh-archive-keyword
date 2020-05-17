@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Project\UI\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 use App\Project\Domain\Exception\GithubEventNotFoundException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -31,9 +31,9 @@ class ApiGitHubDataController extends AbstractController
      * @param int $currentPage
      * @param int $elementsPerPage
      *
-     * @return JsonResponse
+     * @return Response
      */
-    public function getEvents(string $keyword, string $date, int $currentPage, int $elementsPerPage): JsonResponse
+    public function getEvents(string $keyword, string $date, int $currentPage, int $elementsPerPage): Response
     {
         $repo = new GithubEventRepository($this->getDoctrine()->getManager());
         $assembler = new GithubEventsStatsDTOAssembler();
@@ -50,15 +50,15 @@ class ApiGitHubDataController extends AbstractController
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
-        return new JsonResponse($serializer->serialize($dtoGithubEventsStats, 'json'));
+        return new Response($serializer->serialize($dtoGithubEventsStats, 'json'));
     }
 
     /**
      * Return a json object containing a specific event details
      * @param int $id
-     * @return JsonResponse
+     * @return Response
      */
-    public function getEventDetails(int $id): JsonResponse
+    public function getEventDetails(int $id): Response
     {
         try {
 
@@ -72,7 +72,7 @@ class ApiGitHubDataController extends AbstractController
             $normalizers = [new ObjectNormalizer()];
             $serializer = new Serializer($normalizers, $encoders);
 
-            return new JsonResponse($serializer->serialize($dtoGithubEvent, 'json'));
+            return new Response($serializer->serialize($dtoGithubEvent, 'json'));
 
         } catch (GithubEventNotFoundException $e) {
 
